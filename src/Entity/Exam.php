@@ -10,6 +10,9 @@ use App\Enum\ExamStatusEnum;
 use App\Repository\ExamRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ExamRepository::class)]
 #[ApiResource(
@@ -27,15 +30,28 @@ class Exam
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: 'The student name must be at least {{ limit }} characters long',
+        maxMessage: 'The student name cannot be longer than {{ limit }} characters'
+    )]
     private ?string $studentName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'The location cannot be longer than {{ limit }} characters'
+    )]
     private ?string $location = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'H:i'])]
     private ?\DateTimeInterface $time = null;
 
     #[ORM\Column(type: 'string', length: 255, enumType: ExamStatusEnum::class)]
