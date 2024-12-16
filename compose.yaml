@@ -1,0 +1,38 @@
+
+services:
+  fpm:
+    build: .
+    volumes:
+      - .:/var/www/html
+    command: docker-php-entrypoint php-fpm
+    working_dir: /var/www/html
+    expose:
+      - 9000
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www/html
+    ports:
+      - "89:80"
+    depends_on:
+      - fpm
+
+  database:
+    image: postgres:${POSTGRES_VERSION:-16}-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      # You should definitely change the password in production
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    volumes:
+       - ./docker/db/data:/var/lib/postgresql/data:rw
+
+volumes:
+  database_data:
