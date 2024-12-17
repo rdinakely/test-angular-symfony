@@ -13,7 +13,7 @@ RUN npm run build
 # Production stage
 FROM nginx:latest
 
-COPY --from=build /app/dist/front/browser/* /usr/share/nginx/html
+COPY --from=build /app/dist/front/browser /usr/share/nginx/html/
 
 EXPOSE 80
 
