@@ -40,7 +40,7 @@ credentials:
 
 # Default target to run the build process
 .PHONY: all
-all: up
+all: up install-fpm-dependencies generate-jwt-keypair migrate-database load-fixtures open-app credentials
 
 # Help message for available targets
 help:
