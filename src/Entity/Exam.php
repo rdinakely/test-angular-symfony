@@ -48,10 +48,12 @@ class Exam
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
+    #[Assert\NotBlank]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     #[Context([DateTimeNormalizer::FORMAT_KEY => 'H:i'])]
+    #[Assert\NotBlank]
     private ?\DateTimeInterface $time = null;
 
     #[ORM\Column(type: 'string', length: 255, enumType: ExamStatusEnum::class)]
