@@ -5,6 +5,7 @@ import {ExamStatusEnum} from '../exam-list/enum/exam-status.enum';
 import {DatePipe} from '@angular/common';
 import {ExamApiService} from '../exam-list/services/exam-api.service';
 import {Router} from '@angular/router';
+import {ExamStoreService} from '../exam-list/services/exam-store.service';
 
 @Component({
   selector: 'app-add-exam',
@@ -20,6 +21,7 @@ export class AddExamComponent {
   private readonly router = inject(Router)
   private readonly formBuilder = inject(FormBuilder)
   private readonly examApiService = inject(ExamApiService)
+  private readonly examStoreService = inject(ExamStoreService)
 
   protected readonly form: FormGroup
   protected readonly todayDate = new Date()
@@ -52,7 +54,7 @@ export class AddExamComponent {
       //   return of({ error: true })
       // }))
       .subscribe((result) => {
-        console.log('RESULT', result)
+        this.examStoreService.examIsAdded(result)
         this.router.navigate(['/'])
       })
   }

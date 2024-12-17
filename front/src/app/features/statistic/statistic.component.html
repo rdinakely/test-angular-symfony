@@ -4,16 +4,16 @@
   </div>
   <div class="flex px-3 gap-3">
     <div class="flex-1">
-      <app-statistic-item text="Confirmé" textClass="text-green-500" [count]="23" [icon]="faCheckCircle" />
+      <app-statistic-item text="Confirmé" textClass="text-green-500" [count]="confirmedCount()" [icon]="faCheckCircle" />
     </div>
     <div class="flex-1">
-      <app-statistic-item text="À organiser" textClass="text-orange-500" [count]="12" [icon]="faClipboardList" />
+      <app-statistic-item text="À organiser" textClass="text-orange-500" [count]="toBeScheduledCount()" [icon]="faClipboardList" />
     </div>
     <div class="flex-1">
-      <app-statistic-item text="Annulé" textClass="text-red-500" [count]="5" [icon]="faXmark" />
+      <app-statistic-item text="Annulé" textClass="text-red-500" [count]="cancelledCount()" [icon]="faXmark" />
     </div>
     <div class="flex-1">
-      <app-statistic-item text="En recherche de place" textClass="text-blue-500" [count]="8" [icon]="faClock" />
+      <app-statistic-item text="En recherche de place" textClass="text-blue-500" [count]="searchingForPlaceCount()" [icon]="faClock" />
     </div>
   </div>
 </div>

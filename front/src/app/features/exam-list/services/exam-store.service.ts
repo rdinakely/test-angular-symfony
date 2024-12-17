@@ -1,6 +1,7 @@
 import {computed, Injectable, Signal, signal} from '@angular/core';
 import {ExamApiService} from './exam-api.service';
 import {ExamDto} from '../dto/exam.dto';
+import {ExamStatusEnum} from '../enum/exam-status.enum';
 
 @Injectable({ providedIn: 'root' })
 export class ExamStoreService {
@@ -29,6 +30,10 @@ export class ExamStoreService {
         this.exams.set(exams)
         this.isLoading.set(false)
       })
+  }
+
+  public getCountByStatus(status: ExamStatusEnum): number {
+    return this.exams().filter((exam) => exam.status.value === status).length
   }
 
   public examIsAdded(exam: ExamDto): void {
