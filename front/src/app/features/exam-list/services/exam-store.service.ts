@@ -19,10 +19,6 @@ export class ExamStoreService {
   }
 
   public loadExams(): void {
-    if (this.exams().length > 0) {
-      return
-    }
-
     this.isLoading.set(true)
     this.examApiService
       .getExams()

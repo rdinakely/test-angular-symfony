@@ -7,6 +7,7 @@ import {baseUrlInterceptor} from './interceptors/base-url.interceptor';
 import localeFr from '@angular/common/locales/fr';
 import {registerLocaleData} from '@angular/common';
 import {contentTypeInterceptor} from './interceptors/content-type.interceptor';
+import {authorizationInterceptor} from './interceptors/authorization.interceptor';
 
 registerLocaleData(localeFr);
 
@@ -15,7 +16,11 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([baseUrlInterceptor, contentTypeInterceptor])
+      withInterceptors([
+        baseUrlInterceptor,
+        contentTypeInterceptor,
+        authorizationInterceptor,
+      ])
     ),
     {
       provide: LOCALE_ID,

@@ -1,4 +1,4 @@
-import {Component, OnInit, Signal, WritableSignal} from '@angular/core';
+import {Component, Signal, WritableSignal} from '@angular/core';
 import {ExamItemComponent} from '../../components/exam-item/exam-item.component';
 import {ExamStoreService} from './services/exam-store.service';
 import {ExamDto} from './dto/exam.dto';
@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
   standalone: true,
   imports: [ExamItemComponent, NgForOf],
 })
-export class ExamListComponent implements OnInit {
+export class ExamListComponent {
   public readonly futureExamsCount: Signal<number>
   public readonly examsList: WritableSignal<ExamDto[]>
 
@@ -21,10 +21,6 @@ export class ExamListComponent implements OnInit {
   ) {
     this.examsList = this.examStore.exams
     this.futureExamsCount = this.examStore.futureExamsCount
-  }
-
-  ngOnInit(): void {
-    this.examStore.loadExams()
   }
 
   redirectToAddExam() {
