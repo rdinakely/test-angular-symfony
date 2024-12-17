@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:18-alpine as build
 
 WORKDIR /app
 
@@ -8,4 +8,13 @@ RUN npm install
 
 COPY . .
 
-CMD ["npm", "run", "start"]
+RUN npm run build
+
+# Production stage
+FROM nginx:latest
+
+COPY --from=build /app/dist/front/browser/* /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
