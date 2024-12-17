@@ -16,12 +16,18 @@
   </div>
 
   <div class="form__row">
-    <label class="form__label" for="date">Date</label>
+    <label class="form__label" for="date">Date <span class="text-red-500">*</span></label>
+    @if (form.dirty && form.get('date')?.errors?.['required']) {
+      <span class="text-red-500 text-xs">Champ obligatoire</span>
+    }
     <input class="form__input" type="date" id="date" [min]="todayDate | date:'yyyy-MM-dd'" formControlName="date" />
   </div>
 
   <div class="form__row">
-    <label class="form__label" for="time">Heure</label>
+    <label class="form__label" for="time">Heure <span class="text-red-500">*</span></label>
+    @if (form.dirty && form.get('time')?.errors?.['required']) {
+      <span class="text-red-500 text-xs">Champ obligatoire</span>
+    }
     <input class="form__input" type="time" id="time" formControlName="time" />
   </div>
 

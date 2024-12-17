@@ -29,8 +29,8 @@ export class AddExamComponent {
     this.form = this.formBuilder.group({
       studentName: ['', Validators.required],
       location: [''],
-      date: [''],
-      time: [''],
+      date: ['', Validators.required],
+      time: ['', Validators.required],
       status: [ExamStatusEnum.ToBeScheduled],
     })
 
